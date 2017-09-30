@@ -1,0 +1,28 @@
+---
+title: "datatypes_exercise"
+author: "Naema Ahmed"
+date: "9/14/2016"
+output: html_document
+---
+
+1. 2013 American Community Survey: housing data: https://www.kaggle.com/census/2013-american-community-survey
+
+2. I choose a population housing because I think its esstential to discovering many social trends in county especially when dealing with econmomic disparities. 
+
+3. Entities: The entities in this dataset are housing units. There are 756,066 entities.
+
+4. Attributes: Record Type, Housing unit/GQ person serial number, Division code,Public use microdata area code (PUMA), Region code, State Code, Adjustment factor for housing dollar amounts, Housing Weight, Number of person records following this housing record, Type of unit, Access to the Internet, Lot size, Sales of Agriculture Products, Bathtub or shower, Number of bedrooms, Units in structure...full list can be found in data dictionary on American Community Survey's website at https://www2.census.gov/programs-surveys/acs/tech_docs/pums/data_dict/PUMSDataDict13.txt
+
+5. Datatypes - The types are either categorical, numeric discrete and numeric 
+continuos (however the entities round to 6 decimals in the dataset).
+
+6. I intially imported the data, which was in csv format, in RStudio through the enviornment tab and started to answer the questions. It opened the table in another tab and generated the 'view' command on the console. After closing the tab I wasn't able to open it again despite multiple attempts at repeating the process. I came back to this assignment later and the dataset was somehow in the enviornment tab again. I'm not sure if I ran into this problem due to the size the dataset or because I was not uploading it correctly(the error that kept showing up was that 'duplicate row.names are not allowed')
+
+```{r}
+housing_data <- read.csv("~/Desktop/Fall 2016/CMSC 320/ss13husb.csv", header=FALSE)
+```
+
+```{r}
+head(housing_data)
+```
+

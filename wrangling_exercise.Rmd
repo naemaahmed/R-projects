@@ -1,0 +1,60 @@
+---
+title: "Wrangling Exercise"
+author: "Naema Ahmed"
+date: "9/20/2016"
+output: html_document
+---
+
+```{r download, echo=FALSE}
+library(dplyr)
+library(magrittr)
+library(nycflights13)
+data(flights)
+```
+
+1.Filter flights to include only flights with an arrival delay greater than 2 hours (delays are recorded in minutes)
+```{r q1}
+head(flights %>% filter(arr_delay > 120))
+```
+
+2.Select columns in the flights table that contain delay times (note that the function matches can be used to select columns with names that matches a regular expression. See ?dplyr::select)
+
+```{r q2}
+head(select(flights, matches("delay")))
+```
+
+3.Find the minimum arrival delay (this can be a negative number) in the flights table. Use summarize.
+```{r q3}
+flights %>% summarize(min_arrival_delay = min(arr_delay, na.rm=TRUE))
+```
+
+4.Find minimum arrival delay (again, can be a negative number) in the flights table for each destination airport. Use group_by' and 'summarize.
+```{r q4}
+head(flights %>%
+  group_by(dest) %>% 
+  summarize(min_arrival_delay = min(arr_delay, na.rm=TRUE)))
+```
+
+5.List the name of all airlines and the number of flights for each airline in flights table. The airlines table has airline names.
+```{r q5}
+head(flights %>%
+  group_by(carrier) %>%
+  summarize(total_flights = n()) %>%
+  select(carrier, total_flights))
+```
+
+(a): create a new column (use ‘mutate’) with total delay time for each flight
+```{r q5a}
+head(new_table <-flights %>%
+  mutate(total_delay = dep_delay + arr_delay) %>%
+  select(total_delay))
+```
+
+(b): replace any missing total delay times with the average total delay time of the remiaining flights.
+```{r q5b}
+head(flights %>%
+  mutate(total_delay = dep_delay + arr_delay) %>%
+  mutate(mean_delay = mean(total_delay,na.rm=TRUE)) %>%
+  mutate(fixed_total_delay = ifelse(is.na(total_delay), mean_delay, total_delay)) %>%
+  select(total_delay,fixed_total_delay))
+```
